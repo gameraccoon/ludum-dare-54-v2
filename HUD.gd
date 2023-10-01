@@ -32,8 +32,8 @@ func hide_message():
 	$PointsWhite.hide()
 
 func set_scores(scores):
-	$Points.text = "Scores: " + str(int(scores))
-	$PointsWhite.text = "Scores: " + str(int(scores))
+	$Points.text = "Score: " + str(int(scores))
+	$PointsWhite.text = "Score: " + str(int(scores))
 
 func white_scores():
 	$Points.hide()
