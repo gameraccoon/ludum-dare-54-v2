@@ -20,10 +20,12 @@ func show_game_over():
 	$MessageLabel.show()
 	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
+	$Sound.show()
 
 
 func _on_StartButton_pressed():
 	$StartButton.hide()
+	$Sound.hide()
 	$Points.show()
 	emit_signal("start_game")
 
@@ -42,3 +44,12 @@ func white_scores():
 func black_scores():
 	$Points.show()
 	$PointsWhite.hide()
+
+func _on_Sound_pressed():
+	var master_sound = AudioServer.get_bus_index("Master")
+	if not AudioServer.is_bus_mute(master_sound):
+		$Sound.text = "ROUSE SOUND"
+		AudioServer.set_bus_mute(master_sound, true)
+	else:
+		$Sound.text = "QUELL SOUND"
+		AudioServer.set_bus_mute(master_sound, false)
