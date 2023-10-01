@@ -1,16 +1,18 @@
 extends Node2D
 
 enum FingerState {
-	None, 
-	ShowShadow, 
-	StrikeFinger, 
-	Stay, 
+	None,
+	ShowShadow,
+	Pause,
+	StrikeFinger,
+	Stay,
 	Disappear
 }
 
 const FingerStateTimers = {
 	FingerState.None: 0.1,
-	FingerState.ShowShadow: 0.7,
+	FingerState.ShowShadow: 0.3,
+	FingerState.Pause: 0.7,
 	FingerState.StrikeFinger: 1.0,
 	FingerState.Stay: 0.3,
 	FingerState.Disappear: 0.5,
@@ -39,6 +41,9 @@ func _process(delta):
 	if state == FingerState.ShowShadow:
 		var weigth = get_action_factor()
 		_update_shadow_weigth(weigth)
+		if action_is_completed():
+			start_state(FingerState.Pause)
+	elif state == FingerState.Pause:
 		if action_is_completed():
 			start_state(FingerState.StrikeFinger)
 	elif state == FingerState.StrikeFinger:
