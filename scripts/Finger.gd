@@ -33,11 +33,17 @@ func strike_at(point: Vector2, callback):
 	start_state(FingerState.ShowShadow)
 	_update_shadow_weigth(0.0)
 	_update_finger_weigth(0.0)
+	$StaticBody2D/CollisionShape2D.disabled = true
 
 func start_state(new_state):
 	state = new_state
 	action_timer = 0.0
 	action_time = FingerStateTimers[state]
+
+	if new_state == FingerState.Stay:
+		$StaticBody2D/CollisionShape2D.disabled = false
+	if new_state == FingerState.Disappear:
+		$StaticBody2D/CollisionShape2D.disabled = true
 
 func _process(delta):
 	action_timer += delta
