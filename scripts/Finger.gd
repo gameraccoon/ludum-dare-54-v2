@@ -60,7 +60,7 @@ func _process(delta):
 		_update_finger_weigth(weigth)
 		if action_is_completed():
 			if finger_stroke_cb:
-				finger_stroke_cb.call_func()
+				finger_stroke_cb.call_func(position)
 				finger_stroke_cb = null
 			start_state(FingerState.Stay)
 	elif state == FingerState.Stay:
