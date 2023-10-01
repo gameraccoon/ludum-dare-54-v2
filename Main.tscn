@@ -65,11 +65,11 @@ stream = ExtResource( 6 )
 position = Vector2( 640, 360 )
 script = ExtResource( 2 )
 
-[node name="SpaceClick" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 11 )
-
 [node name="MusicMainMenu" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+
+[node name="SpaceClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
 
 [connection signal="finger_stroke" from="FingerSpawner" to="ShakingCamera" method="_on_FingerSpawner_finger_stroke"]
 [connection signal="hit" from="YSort/Player" to="." method="game_over"]
