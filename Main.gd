@@ -13,7 +13,7 @@ const is_invinsible = false
 
 const PATTERNS = [
 	{
-		"name": "left to right",
+		"name": "left to right (easy)",
 		"actions": [
 			[2.563636, Vector2(290, 510)],
 			[3.109091, Vector2(430, 510)],
@@ -24,7 +24,7 @@ const PATTERNS = [
 		]
 	},
 	{
-		"name": "right to left",
+		"name": "right to left (easy)",
 		"actions": [
 			[1.133333, Vector2(1007, 510)],
 			[1.842424, Vector2(879, 510)],
@@ -36,23 +36,55 @@ const PATTERNS = [
 		]
 	},
 	{
-		"name": "outside",
+		"name": "inside (easy)",
 		"actions": [
 			[0.575758, Vector2(269, 510)],
-			[1.145042, Vector2(436, 510)],
 			[0.575758, Vector2(996, 510)],
+			[1.145042, Vector2(436, 510)],
 			[1.145042, Vector2(775, 510)],
 			[2.0, null]
 		]
 	},
 	{
-		"name": "inside",
+		"name": "outside (easy)",
 		"actions": [
 			[0.980682, Vector2(551, 510)],
+			[0.990682, Vector2(688, 510)],
 			[2.206731, Vector2(390, 510)],
-			[0.980682, Vector2(728, 510)],
-			[2.206731, Vector2(880, 510)],
+			[2.206731, Vector2(810, 510)],
 			[3.0, null]
+		]
+	},
+	{
+		"name": "left to right fast (medium)",
+		"actions": [
+			[1.5, Vector2(290, 510)],
+			[1.75, Vector2(430, 510)],
+			[2.0, Vector2(582, 510)],
+			[2.25, Vector2(761, 510)],
+			[2.5, Vector2(841, 510)],
+			[4.0, null]
+		]
+	},
+	{
+		"name": "trick one (medium)",
+		"actions": [
+			[0.791263, Vector2(986, 510)],
+			[1.203886, Vector2(585, 510)],
+			[1.658386, Vector2(232, 510)],
+			[2.706766, Vector2(410, 510)],
+			[3.124906, Vector2(770, 510)],
+			[4.0, null]
+		]
+	},
+	{
+		"name": "trick two (hard)",
+		"actions": [
+			[1.630303, Vector2(822, 510)],
+			[2.375758, Vector2(627, 510)],
+			[2.709091, Vector2(456, 510)],
+			[3.012121, Vector2(309, 510)],
+			[4.0, null]
 		]
 	},
 ]
@@ -146,6 +178,7 @@ func _input(event):
 				print("Replaying")
 				pattern_time = 0.0
 				is_replay = true
+				current_pattern_idx = -1
 			elif event.button_index == BUTTON_LEFT and event.pressed and not is_replay and !$ColorRect.is_visible_in_tree() and current_pattern_idx == -1:
 				print("			[{0}, Vector2({1}, {2})],".format([pattern_time, event.position.x, event.position.y]))
 				debug_recorded_action_times.append(pattern_time)
