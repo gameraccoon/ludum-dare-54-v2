@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 
 var score
 
@@ -129,7 +129,70 @@ const PATTERNS = [
 			[1.25, Vector2(750, 510-50)],
 			[1.50, Vector2(850, 510-50)],
 			[1.75, Vector2(950, 510-50)],
-			[5.0, null]
+			[2.2, null]
+		]
+	},
+	{
+		"name": "wave preview (easy)",
+		"actions": [
+			[1, Vector2(221, 379)],
+			[1.5, Vector2(335, 455)],
+			[2, Vector2(471, 522)],
+			[2.5, Vector2(634, 455)],
+			[3, Vector2(748, 379)],
+			[3.5, Vector2(871, 444)],
+			[4, Vector2(1016, 522)],
+
+			[4, Vector2(221, 522)],
+			[4.5, Vector2(335, 455)],
+			[5, Vector2(471, 379)],
+			[5.5, Vector2(634, 455)],
+			[6, Vector2(748, 522)],
+			[6.5, Vector2(871, 444)],
+			[7, Vector2(1016, 379)],
+			[9, null]
+		]
+	},
+	{
+		"name": "wave (medium)",
+		"actions": [
+			[1, Vector2(221, 379)],
+			[1, Vector2(335, 455)],
+			[1, Vector2(471, 522)],
+			[1, Vector2(634, 455)],
+			[1, Vector2(748, 379)],
+			[1, Vector2(871, 444)],
+			[1, Vector2(1016, 522)],
+
+			[2.5, Vector2(221, 522)],
+			[2.5, Vector2(335, 455)],
+			[2.5, Vector2(471, 379)],
+			[2.5, Vector2(634, 455)],
+			[2.5, Vector2(748, 522)],
+			[2.5, Vector2(871, 444)],
+			[2.5, Vector2(1016, 379)],
+			[3.0, null]
+		]
+	},
+	{
+		"name": "wave 2 (hard)",
+		"actions": [
+			[1, Vector2(221, 379)],
+			[1, Vector2(335, 455)],
+			[1, Vector2(471, 522)],
+			[1, Vector2(634, 455)],
+			[1, Vector2(748, 379)],
+			[1, Vector2(871, 444)],
+			[1, Vector2(1016, 522)],
+
+			[1.8, Vector2(221, 522)],
+			[1.8, Vector2(335, 455)],
+			[1.8, Vector2(471, 379)],
+			[1.8, Vector2(634, 455)],
+			[1.8, Vector2(748, 522)],
+			[1.8, Vector2(871, 444)],
+			[1.8, Vector2(1016, 379)],
+			[4.0, null]
 		]
 	},
 ]
