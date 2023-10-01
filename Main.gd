@@ -1,6 +1,6 @@
 ﻿extends Node
 
-var score
+var score = 0
 
 var pattern_time = 0.0
 
@@ -199,9 +199,11 @@ const PATTERNS = [
 
 var first_pattern_idx = 0
 var current_pattern_idx = -1
+var is_game_over = false
 
 func _ready():
 	$MusicMainMenu.play()
+	$HUD.set_scores(0)
 	randomize()
 
 
@@ -209,6 +211,7 @@ func game_over():
 	if is_invinsible:
 		return
 	
+	is_game_over = true
 	current_pattern_idx = -1
 	$YSort/Player.is_dead = true
 	$Music.stop()
@@ -220,6 +223,7 @@ func game_over():
 
 func new_game():
 	score = 0
+	is_game_over = false
 	$YSort/Player.start_limit = $MovementLimits.get_begin()
 	$YSort/Player.end_limit = $MovementLimits.get_end()
 	$YSort/Player.start($StartPosition.position)
@@ -248,6 +252,10 @@ func _process(delta):
 					break
 	
 	pattern_time += delta
+	if not is_game_over:
+		score += delta
+		$HUD.set_scores(score)
+
 
 	if current_pattern_idx > -1:
 		if current_pattern_idx < PATTERNS.size():
