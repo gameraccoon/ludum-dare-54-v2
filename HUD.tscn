@@ -24,10 +24,11 @@ script = ExtResource( 1 )
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -79.5
-margin_bottom = 79.5
+margin_top = -6.5
+margin_bottom = 152.5
 custom_fonts/font = SubResource( 1 )
-text = "Meow"
+text = "Meow
+"
 align = 1
 
 [node name="StartButton" type="Button" parent="."]
@@ -35,9 +36,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -90.0
+margin_left = -129.0
 margin_top = -200.0
-margin_right = 90.0
+margin_right = 129.0
 margin_bottom = -100.0
 custom_fonts/font = SubResource( 2 )
 shortcut = SubResource( 4 )

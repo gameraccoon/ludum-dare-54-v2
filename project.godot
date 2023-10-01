@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Space Cat"
+config/name="Meowspace"
 config/description="Game made for LD54"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
