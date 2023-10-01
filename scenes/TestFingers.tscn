@@ -7,3 +7,4 @@
 script = ExtResource( 1 )
 
 [node name="FingerSpawner" parent="." instance=ExtResource( 2 )]
+fingers_root = NodePath(".")
