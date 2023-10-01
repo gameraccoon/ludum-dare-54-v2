@@ -1,5 +1,7 @@
 extends Node
 
+export var fingers_root:NodePath
+
 
 var finger_prefub = preload("res://fingers/Finger.tscn")
 
@@ -11,4 +13,4 @@ func finger_stroke_callback():
 func strike_finger_at(position: Vector2):
 	var new_finger = finger_prefub.instance()
 	new_finger.strike_at(position, funcref(self, "finger_stroke_callback"))
-	add_child(new_finger)
+	get_node(fingers_root).add_child(new_finger)

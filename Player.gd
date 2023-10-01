@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 signal hit
 
@@ -83,10 +83,10 @@ func _process(delta):
 func start(pos):
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	$Area2D/Collison.disabled = false
 
 
-func _on_Player_body_entered(_body):
+func _on_Area2D_body_entered(body):
 	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
+	$Area2D/Collison.set_deferred("disabled", true)
 	emit_signal("hit")

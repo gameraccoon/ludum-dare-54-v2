@@ -15,23 +15,23 @@ const PATTERNS = [
 	{
 		"name": "left to right",
 		"actions": [
-			[2.563636, Vector2(290, 500)],
-			[3.109091, Vector2(430, 500)],
-			[3.751515, Vector2(582, 500)],
-			[4.430303, Vector2(761, 500)],
-			[5.036553, Vector2(841, 500)],
+			[2.563636, Vector2(290, 510)],
+			[3.109091, Vector2(430, 510)],
+			[3.751515, Vector2(582, 510)],
+			[4.430303, Vector2(761, 510)],
+			[5.036553, Vector2(841, 510)],
 			[7.0, null]
 		]
 	},
 	{
 		"name": "right to left",
 		"actions": [
-			[1.133333, Vector2(1007, 499)],
-			[1.842424, Vector2(879, 500)],
-			[2.460212, Vector2(792, 500)],
-			[3.054151, Vector2(666, 500)],
-			[3.611727, Vector2(542, 500)],
-			[4.187485, Vector2(423, 500)],
+			[1.133333, Vector2(1007, 510)],
+			[1.842424, Vector2(879, 510)],
+			[2.460212, Vector2(792, 510)],
+			[3.054151, Vector2(666, 510)],
+			[3.611727, Vector2(542, 510)],
+			[4.187485, Vector2(423, 510)],
 			[5.5, null]
 		]
 	},
@@ -49,7 +49,7 @@ func game_over():
 		return
 	
 	current_pattern_idx = -1
-	$Player.hide() # Player disappears after being hit.
+	$YSort/Player.hide() # Player disappears after being hit.
 	$HUD.show_game_over()
 	$Music.stop()
 	$ColorRect.show()
@@ -58,9 +58,9 @@ func game_over():
 
 func new_game():
 	score = 0
-	$Player.start_limit = $MovementLimits.get_begin()
-	$Player.end_limit = $MovementLimits.get_end()
-	$Player.start($StartPosition.position)
+	$YSort/Player.start_limit = $MovementLimits.get_begin()
+	$YSort/Player.end_limit = $MovementLimits.get_end()
+	$YSort/Player.start($StartPosition.position)
 	$ColorRect.hide()
 	$HUD.hide_message()
 	pattern_time = 0.0
@@ -117,16 +117,17 @@ func _input(event):
 	if OS.is_debug_build():
 		if event is InputEventMouseButton:
 			if event.button_index == BUTTON_RIGHT and event.pressed:
-				print("Reset recording")
+				print("Start recording")
 				pattern_time = 0.0
 				debug_recorded_action_times = []
 				debug_recorded_action_positions = []
+				current_pattern_idx = -1
 				is_replay = false
 			if event.button_index == BUTTON_MIDDLE and event.pressed:
 				print("Replaying")
 				pattern_time = 0.0
 				is_replay = true
-			elif event.button_index == BUTTON_LEFT and event.pressed and not is_replay and !$ColorRect.is_visible_in_tree():
+			elif event.button_index == BUTTON_LEFT and event.pressed and not is_replay and !$ColorRect.is_visible_in_tree() and current_pattern_idx == -1:
 				print("			[{0}, Vector2({1}, {2})],".format([pattern_time, event.position.x, event.position.y]))
 				debug_recorded_action_times.append(pattern_time)
 				debug_recorded_action_positions.append(event.position)
