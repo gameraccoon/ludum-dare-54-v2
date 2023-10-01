@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/ShakingCamera.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://art/gameover.wav" type="AudioStream" id=6]
 [ext_resource path="res://art/play_field.png" type="Texture" id=7]
 [ext_resource path="res://fingers/FingerSpawner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://art/space_pressed.png" type="Texture" id=9]
+[ext_resource path="res://art/space_released.png" type="Texture" id=10]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -17,11 +19,21 @@ position = Vector2( 640, 360 )
 z_index = -100
 texture = ExtResource( 7 )
 
+[node name="Node2D" type="Node2D" parent="Background"]
+position = Vector2( -5, 120 )
+
+[node name="SpaceReleased" type="Sprite" parent="Background/Node2D"]
+texture = ExtResource( 10 )
+
+[node name="SpacePressed" type="Sprite" parent="Background/Node2D"]
+visible = false
+texture = ExtResource( 9 )
+
 [node name="MovementLimits" type="ReferenceRect" parent="."]
-margin_left = 239.0
-margin_top = 420.0
-margin_right = 1020.0
-margin_bottom = 520.0
+margin_left = 228.0
+margin_top = 351.0
+margin_right = 1040.0
+margin_bottom = 456.0
 
 [node name="StartPosition" type="Position2D" parent="."]
 position = Vector2( 240, 450 )
