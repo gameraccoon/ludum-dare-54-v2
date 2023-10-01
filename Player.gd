@@ -34,7 +34,7 @@ func _process(delta):
 			# we're done with precaching, stop the particles
 			$Visuals/DashTrail.emitting = false
 
-	$Visuals.position.y = 34 if Globals.is_space_pressed else 0
+	$Visuals.position.y = Globals.space_offset if Globals.is_space_pressed else 0
 	
 	var velocity = Vector2.ZERO # The player's movement vector.
 

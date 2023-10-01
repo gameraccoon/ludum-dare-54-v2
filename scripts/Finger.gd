@@ -37,7 +37,7 @@ func strike_at(point: Vector2, callback):
 	_update_finger_weigth(0.0)
 	$StaticBody2D/Collision.disabled = true
 	
-	var variant = 1 if position.y < 400 else 0
+	var variant = 1 if position.y < 450 else 0
 	$Visuals/Finger/FingerSprite.visible = variant == 0
 	$Visuals/Finger/FingerSpriteVariant2.visible = variant == 1
 
@@ -79,7 +79,7 @@ func _process(delta):
 		if action_is_completed():
 			start_state(FingerState.None)
 			queue_free()
-	$Visuals.position.y = 34 if Globals.is_space_pressed else 0
+	$Visuals.position.y = Globals.space_offset if Globals.is_space_pressed else 0
 
 func get_action_factor() -> float:
 	return min(action_timer / action_time, 1.0)
