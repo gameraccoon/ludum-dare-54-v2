@@ -5,9 +5,11 @@ signal hit
 export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 
+var start_limit = Vector2(0, 0)
+var end_limit = Vector2(100, 100)
+
 
 func _ready():
-	screen_size = get_viewport_rect().size
 	hide()
 
 
@@ -29,8 +31,8 @@ func _process(delta):
 		$AnimatedSprite.stop()
 
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	position.x = clamp(position.x, start_limit.x, end_limit.x)
+	position.y = clamp(position.y, start_limit.y, end_limit.y)
 
 	if velocity.x != 0:
 		$AnimatedSprite.animation = "right"
