@@ -1,4 +1,4 @@
-﻿extends CanvasLayer
+extends CanvasLayer
 
 signal start_game
 
@@ -45,8 +45,8 @@ func black_scores():
 func _on_Sound_pressed():
 	var master_sound = AudioServer.get_bus_index("Master")
 	if not AudioServer.is_bus_mute(master_sound):
-		$Sound.text = "ROUSE SOUND"
+		$Sound.text = "SOUND: OFF"
 		AudioServer.set_bus_mute(master_sound, true)
 	else:
-		$Sound.text = "QUELL SOUND"
+		$Sound.text = "SOUND: ON"
 		AudioServer.set_bus_mute(master_sound, false)
