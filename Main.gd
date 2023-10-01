@@ -21,7 +21,6 @@ func game_over():
 		return
 		
 	$Player.hide() # Player disappears after being hit.
-	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()
@@ -36,7 +35,6 @@ func new_game():
 	$Player.end_limit = $MovementLimits.get_end()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
 	$ColorRect.hide()
 	time = 0.0
@@ -69,14 +67,8 @@ func _on_MobTimer_timeout():
 	$Enemies.add_child(mob)
 
 
-func _on_ScoreTimer_timeout():
-	score += 1
-	$HUD.update_score(score)
-
-
 func _on_StartTimer_timeout():
 	$MobTimer.start()
-	$ScoreTimer.start()
 
 
 func _process(delta):
