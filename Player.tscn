@@ -31,12 +31,14 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Visuals"]
 position = Vector2( 11, -52.2136 )
 scale = Vector2( 0.156, 0.156 )
 texture = ExtResource( 6 )
 
-[node name="DashTrail" type="Particles2D" parent="."]
+[node name="DashTrail" type="Particles2D" parent="Visuals"]
 position = Vector2( 11, -53 )
 z_index = -1
 amount = 20

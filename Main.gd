@@ -205,6 +205,17 @@ func _process(delta):
 			# game over?
 			pass
 	
+	var is_pressed = is_space_pressed()
+	var was_pressed = Globals.is_space_pressed
+	if is_pressed and !was_pressed:
+		$Background/Node2D/SpacePressed.visible = true
+		$Background/Node2D/SpaceReleased.visible = false
+	elif !is_pressed and was_pressed:
+		$Background/Node2D/SpacePressed.visible = false
+		$Background/Node2D/SpaceReleased.visible = true
+	Globals.is_space_pressed = is_pressed
+
+
 
 
 func _input(event):
@@ -228,3 +239,14 @@ func _input(event):
 				debug_recorded_action_positions.append(event.position)
 				$FingerSpawner.strike_finger_at(event.position)
 				
+
+func is_space_pressed():
+	if Input.is_action_pressed("space"):
+		return true
+	
+	for i in range(0, $YSort.get_child_count()):
+		var child = $YSort.get_child(i)
+		if child is Finger:
+			if child.state == Finger.FingerState.Stay:
+				return true
+	return false

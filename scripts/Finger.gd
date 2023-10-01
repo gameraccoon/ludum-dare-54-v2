@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Finger
+
 enum FingerState {
 	None,
 	ShowShadow,
@@ -36,8 +38,8 @@ func strike_at(point: Vector2, callback):
 	$StaticBody2D/Collision.disabled = true
 	
 	var variant = 1 if position.y < 400 else 0
-	$Finger/FingerSprite.visible = variant == 0
-	$Finger/FingerSpriteVariant2.visible = variant == 1
+	$Visuals/Finger/FingerSprite.visible = variant == 0
+	$Visuals/Finger/FingerSpriteVariant2.visible = variant == 1
 
 func start_state(new_state):
 	state = new_state
@@ -77,6 +79,7 @@ func _process(delta):
 		if action_is_completed():
 			start_state(FingerState.None)
 			queue_free()
+	$Visuals.position.y = 34 if Globals.is_space_pressed else 0
 
 func get_action_factor() -> float:
 	return min(action_timer / action_time, 1.0)
@@ -85,7 +88,7 @@ func action_is_completed() -> bool:
 	return action_timer > action_time
 
 func _update_finger_weigth(weigth: float):
-	$Finger.position.y = lerp(figer_from, finger_to, weigth)
+	$Visuals/Finger.position.y = lerp(figer_from, finger_to, weigth)
 
 func _update_shadow_weigth(weigth: float):
-	$Shadow.set_weigth(weigth)
+	$Visuals/Shadow.set_weigth(weigth)

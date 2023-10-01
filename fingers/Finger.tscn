@@ -8,18 +8,20 @@
 [node name="Root" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Shadow" parent="." instance=ExtResource( 3 )]
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Shadow" parent="Visuals" instance=ExtResource( 3 )]
 position = Vector2( 5, -17 )
 scale = Vector2( 1, 1 )
 
-[node name="Finger" type="Node2D" parent="."]
+[node name="Finger" type="Node2D" parent="Visuals"]
 position = Vector2( 0, -1.90735e-06 )
 
-[node name="FingerSprite" type="Sprite" parent="Finger"]
+[node name="FingerSprite" type="Sprite" parent="Visuals/Finger"]
 position = Vector2( 5, -333 )
 texture = ExtResource( 4 )
 
-[node name="FingerSpriteVariant2" type="Sprite" parent="Finger"]
+[node name="FingerSpriteVariant2" type="Sprite" parent="Visuals/Finger"]
 position = Vector2( 5, -283 )
 texture = ExtResource( 1 )
 

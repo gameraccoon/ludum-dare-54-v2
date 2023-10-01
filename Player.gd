@@ -22,7 +22,7 @@ var frames_to_precache_particles = 2
 func _ready():
 	hide()
 	# we need to start with emitting the particle, to avoid lag on first dash
-	$DashTrail.emitting = true
+	$Visuals/DashTrail.emitting = true
 	dash_cooldown_left = 0.0
 	dash_time_left = 0.0
 
@@ -32,7 +32,9 @@ func _process(delta):
 		first_frames_count += 1
 		if first_frames_count == frames_to_precache_particles:
 			# we're done with precaching, stop the particles
-			$DashTrail.emitting = false
+			$Visuals/DashTrail.emitting = false
+
+	$Visuals.position.y = 34 if Globals.is_space_pressed else 0
 	
 	var velocity = Vector2.ZERO # The player's movement vector.
 
@@ -51,7 +53,7 @@ func _process(delta):
 	
 	# are we stopping dash this frame
 	if dash_time_left > 0.0 and dash_time_left - delta <= 0.0:
-		$DashTrail.emitting = false
+		$Visuals/DashTrail.emitting = false
 
 	var speed = base_speed
 
@@ -64,7 +66,7 @@ func _process(delta):
 
 	if (Input.is_action_pressed("Dash") and dash_cooldown_left == 0.0) and velocity != Vector2(0.0, 0.0):
 		# start dash
-		$DashTrail.emitting = true
+		$Visuals/DashTrail.emitting = true
 		dash_cooldown_left = dash_cooldown_time
 		dash_time_left = dash_length
 		dash_start_velocity_vector = velocity
@@ -77,7 +79,7 @@ func _process(delta):
 	position.y = clamp(position.y, start_limit.y, end_limit.y)
 
 	if velocity.x != 0:
-		$Sprite.flip_h = velocity.x > 0
+		$Visuals/Sprite.flip_h = velocity.x > 0
 
 
 func start(pos):
