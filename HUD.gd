@@ -29,6 +29,16 @@ func _on_StartButton_pressed():
 
 func hide_message():
 	$MessageLabel.hide()
+	$PointsWhite.hide()
 
 func set_scores(scores):
 	$Points.text = "Scores: " + str(int(scores))
+	$PointsWhite.text = "Scores: " + str(int(scores))
+
+func white_scores():
+	$Points.hide()
+	$PointsWhite.show()
+
+func black_scores():
+	$Points.show()
+	$PointsWhite.hide()

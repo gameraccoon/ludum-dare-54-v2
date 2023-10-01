@@ -1,4 +1,4 @@
-﻿extends Node
+extends Node
 
 var score = 0
 
@@ -335,4 +335,5 @@ func _on_RandomFingerTimer_timeout():
 
 func _on_DelayTimer_timeout():
 	$ColorRect.show()
+	$HUD.white_scores()
 	$HUD.show_game_over()
