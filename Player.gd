@@ -11,6 +11,7 @@ var end_limit = Vector2(100, 100)
 
 func _ready():
 	hide()
+	$DashTrail.emitting = false
 
 
 func _process(delta):

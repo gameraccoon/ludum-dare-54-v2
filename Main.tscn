@@ -21,11 +21,6 @@ mob_scene = ExtResource( 2 )
 position = Vector2( 640, 360 )
 texture = ExtResource( 7 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.337255, 0.337255, 0.337255, 0.898039 )
-
 [node name="MovementLimits" type="ReferenceRect" parent="."]
 margin_left = 217.0
 margin_top = 430.0
@@ -50,6 +45,13 @@ position = Vector2( 240, 450 )
 curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.337255, 0.337255, 0.337255, 0.898039 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 

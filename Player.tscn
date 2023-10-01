@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://art/playerGrey_walk1.png" type="Texture" id=2]
 [ext_resource path="res://art/playerGrey_walk2.png" type="Texture" id=3]
 [ext_resource path="res://art/playerGrey_up1.png" type="Texture" id=4]
 [ext_resource path="res://art/playerGrey_up2.png" type="Texture" id=5]
+[ext_resource path="res://art/character.png" type="Texture" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -41,7 +42,7 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 0.75
+scale = 0.16
 scale_curve = SubResource( 6 )
 color_ramp = SubResource( 4 )
 
@@ -53,19 +54,27 @@ __meta__ = {
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "right"
 
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 3, -1.66667 )
+scale = Vector2( 0.0777778, 0.0777778 )
+texture = ExtResource( 6 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
-[node name="Trail" type="Particles2D" parent="."]
+[node name="DashTrail" type="Particles2D" parent="."]
+position = Vector2( 3, -2 )
 z_index = -1
+emitting = false
 amount = 10
 speed_scale = 2.0
 local_coords = false
 process_material = SubResource( 7 )
-texture = ExtResource( 2 )
+texture = ExtResource( 6 )
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]

@@ -13,6 +13,7 @@ func game_over():
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()
+	$ColorRect.show()
 	#$DeathSound.play()
 
 
@@ -52,7 +53,7 @@ func _on_MobTimer_timeout():
 	mob.linear_velocity = velocity.rotated(direction)
 
 	# Spawn the mob by adding it to the Main scene.
-	add_child(mob)
+	$Enemies.add_child(mob)
 
 
 func _on_ScoreTimer_timeout():
