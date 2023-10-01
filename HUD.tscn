@@ -27,7 +27,7 @@ anchor_bottom = 0.5
 margin_top = -79.5
 margin_bottom = 79.5
 custom_fonts/font = SubResource( 1 )
-text = "Meow?"
+text = "Meow"
 align = 1
 
 [node name="StartButton" type="Button" parent="."]

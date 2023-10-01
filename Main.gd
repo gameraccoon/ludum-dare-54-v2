@@ -214,6 +214,7 @@ func game_over():
 	$Music.stop()
 	$MusicMainMenu.play()
 	$DeathSound.play()
+	$RandomFingerTimer.stop()
 	$DelayTimer.start()
 
 
@@ -265,14 +266,16 @@ func _process(delta):
 			if is_out_of_actions:
 				current_pattern_idx += 1
 				pattern_time = 0
+				
+				if current_pattern_idx >= PATTERNS.size():
+					Globals.game_is_completed = true
+					$RandomFingerTimer.start()
+
 				if OS.is_debug_build() and current_pattern_idx < PATTERNS.size():
 					print("Playing pattern: ", PATTERNS[current_pattern_idx]["name"])
 				else:
 					print("Finished playing predefined patterns")
-		else:
-			# game over?
-			pass
-	
+
 	var is_pressed = is_space_pressed()
 	var was_pressed = Globals.is_space_pressed
 	if is_pressed and !was_pressed:
@@ -283,8 +286,6 @@ func _process(delta):
 		$Background/Node2D/SpacePressed.visible = false
 		$Background/Node2D/SpaceReleased.visible = true
 	Globals.is_space_pressed = is_pressed
-
-
 
 
 func _input(event):
@@ -320,6 +321,9 @@ func is_space_pressed():
 				return true
 	return false
 
+func _on_RandomFingerTimer_timeout():
+	$FingerSpawner.strike_finger_at(Vector2(rand_range($MovementLimits.get_begin().x, $MovementLimits.get_end().x), rand_range($MovementLimits.get_begin().y, $MovementLimits.get_end().y)))
+	$RandomFingerTimer.start(rand_range(0.2, 0.9))
 
 func _on_DelayTimer_timeout():
 	$ColorRect.show()

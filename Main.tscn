@@ -71,10 +71,15 @@ stream = ExtResource( 5 )
 [node name="SpaceClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 
+[node name="RandomFingerTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="DelayTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="finger_stroke" from="FingerSpawner" to="ShakingCamera" method="_on_FingerSpawner_finger_stroke"]
 [connection signal="hit" from="YSort/Player" to="." method="game_over"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="timeout" from="RandomFingerTimer" to="." method="_on_RandomFingerTimer_timeout"]
 [connection signal="timeout" from="DelayTimer" to="." method="_on_DelayTimer_timeout"]

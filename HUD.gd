@@ -9,8 +9,12 @@ func show_message(text):
 
 
 func show_game_over():
-	show_message("Game Over")
-	$MessageLabel.text = "Meow??"
+	if Globals.game_is_completed:
+		show_message("Game Completed")
+		$MessageLabel.text = "Thank you for playing"
+	else:
+		show_message("Game Over")
+		$MessageLabel.text = "Meow?"
 	$MessageLabel.show()
 	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
