@@ -148,11 +148,10 @@ func game_over():
 	
 	current_pattern_idx = -1
 	$YSort/Player.is_dead = true
-	$HUD.show_game_over()
 	$Music.stop()
 	$MusicMainMenu.play()
-	$ColorRect.show()
 	$DeathSound.play()
+	$DelayTimer.start()
 
 
 func new_game():
@@ -257,3 +256,8 @@ func is_space_pressed():
 			if child.state == Finger.FingerState.Stay:
 				return true
 	return false
+
+
+func _on_DelayTimer_timeout():
+	$ColorRect.show()
+	$HUD.show_game_over()
