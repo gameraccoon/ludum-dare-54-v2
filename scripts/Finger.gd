@@ -34,6 +34,10 @@ func strike_at(point: Vector2, callback):
 	_update_shadow_weigth(0.0)
 	_update_finger_weigth(0.0)
 	$StaticBody2D/Collision.disabled = true
+	
+	var variant = 1 if position.y < 400 else 0
+	$Finger/FingerSprite.visible = variant == 0
+	$Finger/FingerSpriteVariant2.visible = variant == 1
 
 func start_state(new_state):
 	state = new_state

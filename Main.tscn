@@ -31,9 +31,9 @@ texture = ExtResource( 9 )
 
 [node name="MovementLimits" type="ReferenceRect" parent="."]
 margin_left = 228.0
-margin_top = 351.0
+margin_top = 395.0
 margin_right = 1040.0
-margin_bottom = 456.0
+margin_bottom = 500.0
 
 [node name="StartPosition" type="Position2D" parent="."]
 position = Vector2( 240, 450 )
