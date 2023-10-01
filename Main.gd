@@ -31,8 +31,8 @@ func new_game():
 	$Player.start_limit = $MovementLimits.get_begin()
 	$Player.end_limit = $MovementLimits.get_end()
 	$Player.start($StartPosition.position)
-	$HUD.show_message("Get Ready")
 	$ColorRect.hide()
+	$HUD.hide_message()
 	time = 0.0
 	#$Music.play()
 
