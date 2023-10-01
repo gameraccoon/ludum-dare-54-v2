@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/ShakingCamera.gd" type="Script" id=2]
@@ -13,6 +13,11 @@
 [ext_resource path="res://sounds/space_press.mp3" type="AudioStream" id=11]
 [ext_resource path="res://sounds/game_play_music.mp3" type="AudioStream" id=12]
 [ext_resource path="res://art/menu.png" type="Texture" id=13]
+[ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=14]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 14 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -26,12 +31,25 @@ texture = ExtResource( 7 )
 position = Vector2( -5, 120 )
 
 [node name="SpaceReleased" type="Sprite" parent="Background/Node2D"]
+position = Vector2( 0, 5 )
 texture = ExtResource( 10 )
 
 [node name="SpacePressed" type="Sprite" parent="Background/Node2D"]
-visible = false
 position = Vector2( 0, 14 )
 texture = ExtResource( 9 )
+
+[node name="Points" type="Label" parent="Background"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -639.0
+margin_top = -88.0
+margin_right = -639.0
+margin_bottom = 71.0
+custom_colors/font_color = Color( 0.827451, 0.827451, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Score: "
+align = 1
 
 [node name="MovementLimits" type="ReferenceRect" parent="."]
 margin_left = 228.0

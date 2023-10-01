@@ -1,9 +1,9 @@
-extends CanvasLayer
+﻿extends CanvasLayer
 
 signal start_game
 
 func _ready():
-	$Points.hide()
+	pass
 
 func show_message(text):
 	$MessageLabel.text = text
@@ -26,7 +26,6 @@ func show_game_over():
 func _on_StartButton_pressed():
 	$StartButton.hide()
 	$Sound.hide()
-	$Points.show()
 	emit_signal("start_game")
 
 func hide_message():
@@ -34,15 +33,13 @@ func hide_message():
 	$PointsWhite.hide()
 
 func set_scores(scores):
-	$Points.text = "Score: " + str(int(scores))
+	get_parent().find_node("Points").text = "Score: " + str(int(scores))
 	$PointsWhite.text = "Score: " + str(int(scores))
 
 func white_scores():
-	$Points.hide()
 	$PointsWhite.show()
 
 func black_scores():
-	$Points.show()
 	$PointsWhite.hide()
 
 func _on_Sound_pressed():
