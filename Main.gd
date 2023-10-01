@@ -17,9 +17,9 @@ const PATTERNS = [
 		"actions": [
 			[2.563636, Vector2(290, 500)],
 			[3.109091, Vector2(430, 500)],
-			[3.751515, Vector2(582, 502)],
-			[4.430303, Vector2(761, 507)],
-			[5.036553, Vector2(841, 504)],
+			[3.751515, Vector2(582, 500)],
+			[4.430303, Vector2(761, 500)],
+			[5.036553, Vector2(841, 500)],
 			[7.0, null]
 		]
 	},
@@ -28,18 +28,18 @@ const PATTERNS = [
 		"actions": [
 			[1.133333, Vector2(1007, 499)],
 			[1.842424, Vector2(879, 500)],
-			[2.460212, Vector2(792, 498)],
-			[3.054151, Vector2(666, 492)],
-			[3.611727, Vector2(542, 497)],
-			[4.187485, Vector2(423, 494)],
-			[4.751121, Vector2(341, 494)],
+			[2.460212, Vector2(792, 500)],
+			[3.054151, Vector2(666, 500)],
+			[3.611727, Vector2(542, 500)],
+			[4.187485, Vector2(423, 500)],
+			[4.751121, Vector2(341, 500)],
 			[5.5, null]
 		]
 	},
 ]
 
 var first_pattern_idx = 0
-var current_pattern_idx = first_pattern_idx
+var current_pattern_idx = -1
 
 func _ready():
 	randomize()
