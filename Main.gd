@@ -11,6 +11,8 @@ var is_replay = false
 
 const is_invinsible = false
 
+var click_sound = preload("res://sounds/space_press.mp3")
+
 const PATTERNS = [
 	{
 		"name": "left to right (easy)",
@@ -136,6 +138,7 @@ var first_pattern_idx = 0
 var current_pattern_idx = -1
 
 func _ready():
+	$MusicMainMenu.play()
 	randomize()
 
 
@@ -147,8 +150,9 @@ func game_over():
 	$YSort/Player.hide() # Player disappears after being hit.
 	$HUD.show_game_over()
 	$Music.stop()
+	$MusicMainMenu.play()
 	$ColorRect.show()
-	#$DeathSound.play()
+	$DeathSound.play()
 
 
 func new_game():
@@ -160,7 +164,8 @@ func new_game():
 	$HUD.hide_message()
 	pattern_time = 0.0
 	current_pattern_idx = first_pattern_idx
-	#$Music.play()
+	$Music.play()
+	$MusicMainMenu.stop()
 	
 	if OS.is_debug_build() and current_pattern_idx > -1 and current_pattern_idx < PATTERNS.size():
 		print("Playing pattern: ", PATTERNS[current_pattern_idx]["name"])
@@ -208,6 +213,7 @@ func _process(delta):
 	var is_pressed = is_space_pressed()
 	var was_pressed = Globals.is_space_pressed
 	if is_pressed and !was_pressed:
+		$SpaceClick.play(0.1)
 		$Background/Node2D/SpacePressed.visible = true
 		$Background/Node2D/SpaceReleased.visible = false
 	elif !is_pressed and was_pressed:

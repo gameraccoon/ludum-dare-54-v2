@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/cat_meow.mp3-9f3678d1127fa19501040e5d8c2dfb68.mp3str"
+
+[deps]
+
+source_file="res://sounds/cat_meow.mp3"
+dest_files=[ "res://.import/cat_meow.mp3-9f3678d1127fa19501040e5d8c2dfb68.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

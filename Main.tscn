@@ -1,15 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/ShakingCamera.gd" type="Script" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://art/House In a Forest Loop.ogg" type="AudioStream" id=5]
-[ext_resource path="res://art/gameover.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/main_menu_music.mp3" type="AudioStream" id=5]
+[ext_resource path="res://sounds/cat_lose.wav" type="AudioStream" id=6]
 [ext_resource path="res://art/play_field.png" type="Texture" id=7]
 [ext_resource path="res://fingers/FingerSpawner.tscn" type="PackedScene" id=8]
 [ext_resource path="res://art/space_pressed.png" type="Texture" id=9]
 [ext_resource path="res://art/space_released.png" type="Texture" id=10]
+[ext_resource path="res://sounds/space_press.mp3" type="AudioStream" id=11]
+[ext_resource path="res://sounds/game_play_music.mp3" type="AudioStream" id=12]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -54,7 +56,7 @@ color = Color( 0.337255, 0.337255, 0.337255, 0.898039 )
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 12 )
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
@@ -62,6 +64,12 @@ stream = ExtResource( 6 )
 [node name="ShakingCamera" type="Camera2D" parent="."]
 position = Vector2( 640, 360 )
 script = ExtResource( 2 )
+
+[node name="SpaceClick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+
+[node name="MusicMainMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 
 [connection signal="finger_stroke" from="FingerSpawner" to="ShakingCamera" method="_on_FingerSpawner_finger_stroke"]
 [connection signal="hit" from="YSort/Player" to="." method="game_over"]

@@ -70,6 +70,7 @@ func _process(delta):
 		dash_cooldown_left = dash_cooldown_time
 		dash_time_left = dash_length
 		dash_start_velocity_vector = velocity
+		$SoundDash.play(0.25)
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
