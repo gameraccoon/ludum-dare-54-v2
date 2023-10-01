@@ -147,7 +147,7 @@ func game_over():
 		return
 	
 	current_pattern_idx = -1
-	$YSort/Player.hide() # Player disappears after being hit.
+	$YSort/Player.is_dead = true
 	$HUD.show_game_over()
 	$Music.stop()
 	$MusicMainMenu.play()
@@ -164,6 +164,7 @@ func new_game():
 	$HUD.hide_message()
 	pattern_time = 0.0
 	current_pattern_idx = first_pattern_idx
+	$YSort/Player.is_dead = false
 	$Music.play()
 	$MusicMainMenu.stop()
 	

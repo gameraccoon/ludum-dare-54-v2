@@ -17,7 +17,9 @@ var dash_start_velocity_vector = Vector2(0.0, 0.0)
 
 # use first frame to precache things
 var first_frames_count = 0
-var frames_to_precache_particles = 2
+var frames_to_precache_particles = 5
+
+var is_dead = false
 
 func _ready():
 	hide()
@@ -74,6 +76,9 @@ func _process(delta):
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+	
+	if is_dead:
+		velocity = Vector2(0.0, 0.0)
 
 	position += velocity * delta
 	position.x = clamp(position.x, start_limit.x, end_limit.x)
@@ -81,7 +86,16 @@ func _process(delta):
 
 	if velocity.x != 0:
 		$Visuals/Sprite.flip_h = velocity.x > 0
-
+		$Visuals/Sprite.position.x = 26 if velocity.x <= 0 else -20
+		if dash_time_left > 0.0:
+			$Visuals/Sprite.animation = "dash"
+		else:
+			$Visuals/Sprite.animation = "go"
+	else:
+		if is_dead:
+			$Visuals/Sprite.animation = "die"
+		else:
+			$Visuals/Sprite.animation = "stand"
 
 func start(pos):
 	position = pos
