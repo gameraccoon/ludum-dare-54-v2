@@ -62,7 +62,7 @@ func _process(delta):
 	else:
 		dash_time_left = 0.0
 
-	if (Input.is_action_pressed("Dash") and dash_cooldown_left == 0.0):
+	if (Input.is_action_pressed("Dash") and dash_cooldown_left == 0.0) and velocity != Vector2(0.0, 0.0):
 		# start dash
 		$DashTrail.emitting = true
 		dash_cooldown_left = dash_cooldown_time
@@ -86,7 +86,7 @@ func start(pos):
 	$Area2D/Collison.disabled = false
 
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(_body):
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$Area2D/Collison.set_deferred("disabled", true)
 	emit_signal("hit")
