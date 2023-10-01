@@ -3,7 +3,7 @@ extends Area2D
 signal hit
 
 export var base_speed = 200 # How fast the player will move (pixels/sec).
-export var dash_speed = 800
+export var dash_speed = 1000
 var screen_size # Size of the game window.
 
 var start_limit = Vector2(0, 0)
@@ -15,14 +15,25 @@ var dash_length = 0.1
 var dash_time_left = 0.0
 var dash_start_velocity_vector = Vector2(0.0, 0.0)
 
+# use first frame to precache things
+var first_frames_count = 0
+var frames_to_precache_particles = 2
+
 func _ready():
 	hide()
-	$DashTrail.emitting = false
+	# we need to start with emitting the particle, to avoid lag on first dash
+	$DashTrail.emitting = true
 	dash_cooldown_left = 0.0
 	dash_time_left = 0.0
 
 
 func _process(delta):
+	if first_frames_count < frames_to_precache_particles and is_visible_in_tree():
+		first_frames_count += 1
+		if first_frames_count == frames_to_precache_particles:
+			# we're done with precaching, stop the particles
+			$DashTrail.emitting = false
+	
 	var velocity = Vector2.ZERO # The player's movement vector.
 
 	if Input.is_action_pressed("move_right"):
@@ -39,13 +50,13 @@ func _process(delta):
 		dash_cooldown_left = 0.0
 	
 	# are we stopping dash this frame
-	if dash_time_left >= 0.0 and dash_time_left - delta < 0.0:
+	if dash_time_left > 0.0 and dash_time_left - delta <= 0.0:
 		$DashTrail.emitting = false
 
 	var speed = base_speed
 
 	dash_time_left -= delta
-	if dash_time_left >= 0.0:
+	if dash_time_left > 0.0:
 		speed = dash_speed
 		velocity = dash_start_velocity_vector
 	else:
@@ -60,21 +71,13 @@ func _process(delta):
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-		$AnimatedSprite.play()
-	else:
-		$AnimatedSprite.stop()
 
 	position += velocity * delta
 	position.x = clamp(position.x, start_limit.x, end_limit.x)
 	position.y = clamp(position.y, start_limit.y, end_limit.y)
 
 	if velocity.x != 0:
-		$AnimatedSprite.animation = "right"
-		$AnimatedSprite.flip_v = false
-		$AnimatedSprite.flip_h = velocity.x < 0
-	elif velocity.y != 0:
-		$AnimatedSprite.animation = "up"
-		$AnimatedSprite.flip_v = velocity.y > 0
+		$Sprite.flip_h = velocity.x > 0
 
 
 func start(pos):
