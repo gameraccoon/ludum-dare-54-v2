@@ -1,55 +1,70 @@
 extends Node2D
 
 enum FingerState {
-	None, Show, Stay, Disappear
+	None, 
+	ShowShadow, 
+	StrikeFinger, 
+	Stay, 
+	Disappear
 }
 
-var state = FingerState.None
-
-var action_timer = 0.0
-const showing_time = 1.0
-const staying_time = 0.3
-const disappearing_time = 0.5
+const FingerStateTimers = {
+	FingerState.None: 0.1,
+	FingerState.ShowShadow: 0.7,
+	FingerState.StrikeFinger: 1.0,
+	FingerState.Stay: 0.3,
+	FingerState.Disappear: 0.5,
+}
 
 const finger_to = 0
 const figer_from = -720
 
+var state = FingerState.None
+var action_timer = 0.0
+var action_time = 0.0
+
 func strike_at(point: Vector2):
 	position = point
-	state = FingerState.Show
-	$Shadow.show()
-	action_timer = 0.0
-	_set_params_by_weigth(0.0)
+	start_state(FingerState.ShowShadow)
+	_update_shadow_weigth(0.0)
+	_update_finger_weigth(0.0)
 
+func start_state(new_state):
+	state = new_state
+	action_timer = 0.0
+	action_time = FingerStateTimers[state]
 
 func _process(delta):
-	if state == FingerState.Show:
-		action_timer += delta
-		var weigth = action_timer / showing_time
-		weigth = ease(weigth, 4.8)
-		if weigth < 1.0:
-			_set_params_by_weigth(weigth)
-		else:
-			_set_params_by_weigth(1.0)
-			action_timer = 0.0
-			state = FingerState.Stay
+	action_timer += delta
+	if state == FingerState.ShowShadow:
+		var weigth = get_action_factor()
+		_update_shadow_weigth(weigth)
+		if action_is_completed():
+			start_state(FingerState.StrikeFinger)
+	elif state == FingerState.StrikeFinger:
+		var weigth = ease(get_action_factor(), 4.8)
+		_update_finger_weigth(weigth)
+		if action_is_completed():
+			start_state(FingerState.Stay)
 	elif state == FingerState.Stay:
-		action_timer += delta
-		if action_timer >= staying_time:
-			action_timer = 0.0
-			state = FingerState.Disappear
+		if action_is_completed():
+			start_state(FingerState.Disappear)
 	elif state == FingerState.Disappear:
-		action_timer += delta
-		var weigth = action_timer / disappearing_time
-		if weigth < 1.0:
-			_set_params_by_weigth(1.0 - weigth)
-		else:
-			_set_params_by_weigth(0.0)
-			action_timer = 0.0
-			state = FingerState.None
+		var weigth = 1.0 - get_action_factor()
+		_update_finger_weigth(weigth)
+		_update_shadow_weigth(weigth)
+		if action_is_completed():
+			start_state(FingerState.None)
 			queue_free()
 
+func get_action_factor() -> float:
+	return min(action_timer / action_time, 1.0)
 
-func _set_params_by_weigth(weigth):
+func action_is_completed() -> bool:
+	return action_timer > action_time
+
+func _update_finger_weigth(weigth: float):
 	$Finger.position.y = lerp(figer_from, finger_to, weigth)
+
+func _update_shadow_weigth(weigth: float):
 	$Shadow.set_weigth(weigth)

@@ -7,6 +7,6 @@ const alpha_from = 0.0
 const alpha_to = 0.6
 
 func set_weigth(weigth):
-	weigth = ease(weigth, 0.2)
+	weigth = clamp(weigth, 0.0, 1.0)
 	scale = Vector2(1, 1) * lerp(scale_from, scale_to, weigth)
 	$Sprite.self_modulate.a = lerp(alpha_from, alpha_to, weigth)
