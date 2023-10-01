@@ -20,6 +20,7 @@ const PATTERNS = [
 			[3.751515, Vector2(582, 502)],
 			[4.430303, Vector2(761, 507)],
 			[5.036553, Vector2(841, 504)],
+			[7.0, null]
 		]
 	},
 	{
@@ -32,6 +33,7 @@ const PATTERNS = [
 			[3.611727, Vector2(542, 497)],
 			[4.187485, Vector2(423, 494)],
 			[4.751121, Vector2(341, 494)],
+			[5.5, null]
 		]
 	},
 ]
@@ -93,7 +95,8 @@ func _process(delta):
 				var i_time = pattern_actions[i][0]
 				if pattern_time < i_time and pattern_time + delta >= i_time:
 					var pos = pattern_actions[i][1]
-					$FingerSpawner.strike_finger_at(pos)
+					if pos != null:
+						$FingerSpawner.strike_finger_at(pos)
 				if pattern_time + delta < i_time:
 					is_out_of_actions = false
 					break
