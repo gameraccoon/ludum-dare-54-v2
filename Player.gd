@@ -3,7 +3,7 @@ extends Node2D
 signal hit
 
 export var base_speed = 200 # How fast the player will move (pixels/sec).
-export var dash_speed = 1000
+export var dash_speed = 2000
 var screen_size # Size of the game window.
 
 var start_limit = Vector2(0, 0)

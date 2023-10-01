@@ -4,7 +4,7 @@
 [ext_resource path="res://art/character.png" type="Texture" id=6]
 
 [sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 1, 1, 0.501961, 1, 1, 1, 0 )
+colors = PoolColorArray( 1, 1, 1, 0.196078, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=4]
 gradient = SubResource( 3 )
@@ -39,8 +39,8 @@ texture = ExtResource( 6 )
 [node name="DashTrail" type="Particles2D" parent="."]
 position = Vector2( 2, -2 )
 z_index = -1
-amount = 10
-speed_scale = 4.0
+amount = 20
+lifetime = 0.1
 local_coords = false
 process_material = SubResource( 7 )
 texture = ExtResource( 6 )
