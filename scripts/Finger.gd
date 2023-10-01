@@ -25,7 +25,10 @@ var state = FingerState.None
 var action_timer = 0.0
 var action_time = 0.0
 
-func strike_at(point: Vector2):
+var finger_stroke_cb = null
+
+func strike_at(point: Vector2, callback):
+	finger_stroke_cb = callback
 	position = point
 	start_state(FingerState.ShowShadow)
 	_update_shadow_weigth(0.0)
@@ -50,6 +53,9 @@ func _process(delta):
 		var weigth = ease(get_action_factor(), 4.8)
 		_update_finger_weigth(weigth)
 		if action_is_completed():
+			if finger_stroke_cb:
+				finger_stroke_cb.call_func()
+				finger_stroke_cb = null
 			start_state(FingerState.Stay)
 	elif state == FingerState.Stay:
 		if action_is_completed():
