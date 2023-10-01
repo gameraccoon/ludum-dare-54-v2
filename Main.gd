@@ -35,6 +35,26 @@ const PATTERNS = [
 			[5.5, null]
 		]
 	},
+	{
+		"name": "outside",
+		"actions": [
+			[0.575758, Vector2(269, 510)],
+			[1.145042, Vector2(436, 510)],
+			[0.575758, Vector2(996, 510)],
+			[1.145042, Vector2(775, 510)],
+			[2.0, null]
+		]
+	},
+	{
+		"name": "inside",
+		"actions": [
+			[0.980682, Vector2(551, 510)],
+			[2.206731, Vector2(390, 510)],
+			[0.980682, Vector2(728, 510)],
+			[2.206731, Vector2(880, 510)],
+			[3.0, null]
+		]
+	},
 ]
 
 var first_pattern_idx = 0
@@ -98,7 +118,6 @@ func _process(delta):
 						$FingerSpawner.strike_finger_at(pos)
 				if pattern_time + delta < i_time:
 					is_out_of_actions = false
-					break
 
 			if is_out_of_actions:
 				current_pattern_idx += 1
