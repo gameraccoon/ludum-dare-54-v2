@@ -101,7 +101,6 @@ text = "Start"
 [node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/Animation"]
 position = Vector2( 640, 360 )
 frames = SubResource( 6 )
-frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -148,11 +147,13 @@ shortcut = SubResource( 4 )
 
 [node name="SoundOff" type="Sprite" parent="Sound"]
 position = Vector2( 93, 96 )
+scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 9 )
 
 [node name="SoundOn" type="Sprite" parent="Sound"]
 visible = false
 position = Vector2( 93, 96 )
+scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 10 )
 
 [node name="Paused" type="ColorRect" parent="."]
