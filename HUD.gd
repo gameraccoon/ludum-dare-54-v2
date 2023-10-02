@@ -3,8 +3,8 @@ extends CanvasLayer
 signal start_game
 
 func _ready():
-	$ColorRect/Animation.visible = Globals.game_is_completed
-	$ColorRect/Base.visible = !Globals.game_is_completed
+	$ColorRect/Animation.visible = false
+	$ColorRect/Base.visible = true
 	$Paused.visible = false
 
 func show_message(text):
