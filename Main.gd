@@ -331,8 +331,28 @@ func is_space_pressed():
 				return true
 	return false
 
+func get_random_position_for_finger():
+	return Vector2(rand_range($MovementLimits.get_begin().x, $MovementLimits.get_end().x), rand_range($MovementLimits.get_begin().y, $MovementLimits.get_end().y))
+
+func get_unoccupied_by_fingers_random_position():
+	var finger_position
+	for j in range(0, 30):
+		finger_position = get_random_position_for_finger()
+		var occupied = false
+		for i in range(0, $YSort.get_child_count()):
+			var child = $YSort.get_child(i)
+			if child is Finger:
+				if finger_position.distance_squared_to(child.position) < 100*100:
+					occupied = true
+					break
+		
+		if !occupied:
+			return finger_position
+	
+	return finger_position
+
 func _on_RandomFingerTimer_timeout():
-	$FingerSpawner.strike_finger_at(Vector2(rand_range($MovementLimits.get_begin().x, $MovementLimits.get_end().x), rand_range($MovementLimits.get_begin().y, $MovementLimits.get_end().y)))
+	$FingerSpawner.strike_finger_at(get_unoccupied_by_fingers_random_position())
 	$RandomFingerTimer.start(rand_range(0.2, 0.9))
 
 func _on_DelayTimer_timeout():
