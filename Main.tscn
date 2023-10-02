@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/ShakingCamera.gd" type="Script" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://art/space_released.png" type="Texture" id=10]
 [ext_resource path="res://sounds/space_press.mp3" type="AudioStream" id=11]
 [ext_resource path="res://sounds/game_play_music.mp3" type="AudioStream" id=12]
-[ext_resource path="res://art/menu.png" type="Texture" id=13]
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=14]
 
 [sub_resource type="DynamicFont" id=1]
@@ -66,10 +65,6 @@ fingers_root = NodePath("../YSort")
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 3 )]
-
-[node name="ColorRect" type="Sprite" parent="."]
-position = Vector2( 640, 360 )
-texture = ExtResource( 13 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 

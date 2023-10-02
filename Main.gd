@@ -229,7 +229,7 @@ func new_game():
 	$YSort/Player.start_limit = $MovementLimits.get_begin()
 	$YSort/Player.end_limit = $MovementLimits.get_end()
 	$YSort/Player.start($StartPosition.position)
-	$ColorRect.hide()
+	$HUD/ColorRect.hide()
 	$HUD.hide_message()
 	pattern_time = 0.0
 	current_pattern_idx = first_pattern_idx
@@ -313,7 +313,7 @@ func _input(event):
 				pattern_time = 0.0
 				is_replay = true
 				current_pattern_idx = -1
-			elif event.button_index == BUTTON_LEFT and event.pressed and not is_replay and !$ColorRect.is_visible_in_tree() and current_pattern_idx == -1:
+			elif event.button_index == BUTTON_LEFT and event.pressed and not is_replay and !$HUD/ColorRect.is_visible_in_tree() and current_pattern_idx == -1:
 				print("			[{0}, Vector2({1}, {2})],".format([pattern_time, event.position.x, event.position.y]))
 				debug_recorded_action_times.append(pattern_time)
 				debug_recorded_action_positions.append(event.position)
@@ -356,6 +356,6 @@ func _on_RandomFingerTimer_timeout():
 	$RandomFingerTimer.start(rand_range(0.2, 0.9))
 
 func _on_DelayTimer_timeout():
-	$ColorRect.show()
+	$HUD/ColorRect.show()
 	$HUD.white_scores()
 	$HUD.show_game_over()

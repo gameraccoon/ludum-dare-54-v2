@@ -50,3 +50,9 @@ func _on_Sound_pressed():
 	else:
 		$Sound.text = "SOUND: ON"
 		AudioServer.set_bus_mute(master_sound, false)
+#
+#func _input(event):
+#	if event.is_action_released("pause"):
+#		if not get_node(GlobalVar.pathToGameOver).visible:
+#			get_tree().paused = !get_tree().paused
+#			visible = get_tree().paused
