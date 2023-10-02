@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://art/finish_screen2.png" type="Texture" id=3]
 [ext_resource path="res://art/finish_screen1.png" type="Texture" id=4]
 [ext_resource path="res://art/menu.png" type="Texture" id=5]
+[ext_resource path="res://art/buttons/button1.png" type="Texture" id=6]
+[ext_resource path="res://art/buttons/button2.png" type="Texture" id=7]
+[ext_resource path="res://art/buttons/button3.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -20,6 +23,26 @@ action = "start_game"
 [sub_resource type="ShortCut" id=4]
 shortcut = SubResource( 3 )
 
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 270, 103 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 270, 103 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 270, 103 )
+
 [sub_resource type="DynamicFont" id=5]
 size = 24
 font_data = ExtResource( 2 )
@@ -27,43 +50,56 @@ font_data = ExtResource( 2 )
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="ColorRect" type="Sprite" parent="."]
+[node name="ColorRect" type="Node2D" parent="."]
+
+[node name="Base" type="Node2D" parent="ColorRect"]
+
+[node name="BlackCat" type="Sprite" parent="ColorRect/Base"]
 position = Vector2( 640, 360 )
 texture = ExtResource( 5 )
 
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-position = Vector2( 640, 360 )
-texture = ExtResource( 4 )
-
-[node name="Sprite2" type="Sprite" parent="."]
-visible = false
-position = Vector2( 640, 360 )
-texture = ExtResource( 3 )
-
-[node name="MessageLabel" type="Label" parent="."]
+[node name="MessageLabel" type="Label" parent="ColorRect/Base"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -6.5
-margin_bottom = 152.5
+margin_top = 354.0
+margin_right = 1281.0
+margin_bottom = 513.0
 custom_fonts/font = SubResource( 1 )
 text = "Meow
 "
 align = 1
 
-[node name="StartButton" type="Button" parent="."]
+[node name="StartButton" type="Button" parent="ColorRect/Base"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -130.0
-margin_top = -258.0
-margin_right = 128.0
-margin_bottom = -158.0
+margin_left = 510.0
+margin_top = 462.0
+margin_right = 768.0
+margin_bottom = 562.0
 custom_fonts/font = SubResource( 2 )
 shortcut = SubResource( 4 )
 text = "Start"
+
+[node name="Animation" type="Node2D" parent="ColorRect"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/Animation"]
+position = Vector2( 640, 360 )
+frames = SubResource( 6 )
+speed_scale = 0.5
+playing = true
+
+[node name="PlayAgain" type="Button" parent="ColorRect/Animation"]
+margin_left = 347.0
+margin_top = 457.0
+margin_right = 617.0
+margin_bottom = 560.0
+focus_mode = 0
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 
 [node name="PointsWhite" type="Label" parent="."]
 visible = false
@@ -81,11 +117,12 @@ text = "Score: "
 align = 1
 
 [node name="Sound" type="Button" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 417.0
+margin_left = 455.0
 margin_top = -64.0
 margin_right = 634.0
 margin_bottom = -6.0
@@ -94,5 +131,6 @@ shortcut = SubResource( 4 )
 text = "SOUND: ON"
 icon_align = 1
 
-[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="ColorRect/Base/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="ColorRect/Animation/PlayAgain" to="." method="_on_PlayAgain_pressed"]
 [connection signal="pressed" from="Sound" to="." method="_on_Sound_pressed"]

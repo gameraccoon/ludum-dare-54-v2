@@ -3,33 +3,37 @@ extends CanvasLayer
 signal start_game
 
 func _ready():
-	pass
+	$ColorRect/Animation.visible = Globals.game_is_completed
+	$ColorRect/Base.visible = !Globals.game_is_completed
 
 func show_message(text):
-	$MessageLabel.text = text
-	$MessageLabel.show()
+	$ColorRect/Base/MessageLabel.text = text
+	$ColorRect/Base/MessageLabel.show()
 
 
 func show_game_over():
+	$ColorRect/Animation.visible = Globals.game_is_completed
+	$ColorRect/Base.visible = !Globals.game_is_completed
+	
 	if Globals.game_is_completed:
 		show_message("Game Completed")
-		$MessageLabel.text = "Thank you for playing"
+		$ColorRect/Base/MessageLabel.text = "Thank you for playing"
 	else:
 		show_message("Game Over")
-		$MessageLabel.text = "Meow?"
-	$MessageLabel.show()
+		$ColorRect/Base/MessageLabel.text = "Meow?"
+	$ColorRect/Base/MessageLabel.show()
 	yield(get_tree().create_timer(1), "timeout")
-	$StartButton.show()
+	$ColorRect/Base/StartButton.show()
 	$Sound.show()
 
 
 func _on_StartButton_pressed():
-	$StartButton.hide()
+	$ColorRect/Base/StartButton.hide()
 	$Sound.hide()
 	emit_signal("start_game")
 
 func hide_message():
-	$MessageLabel.hide()
+	$ColorRect/Base/MessageLabel.hide()
 	$PointsWhite.hide()
 
 func set_scores(scores):
@@ -56,3 +60,9 @@ func _on_Sound_pressed():
 #		if not get_node(GlobalVar.pathToGameOver).visible:
 #			get_tree().paused = !get_tree().paused
 #			visible = get_tree().paused
+
+
+func _on_PlayAgain_pressed():
+	$ColorRect/Base/StartButton.hide()
+	$Sound.hide()
+	emit_signal("start_game")
