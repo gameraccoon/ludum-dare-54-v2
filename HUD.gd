@@ -64,7 +64,6 @@ func _input(event):
 	if event.is_action_released("pause"):
 		if Globals.game_is_started:
 			get_tree().paused = !get_tree().paused
-			visible = get_tree().paused
 			$Paused.visible = get_tree().paused
 
 
