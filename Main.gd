@@ -202,6 +202,8 @@ var current_pattern_idx = -1
 var is_game_over = false
 
 func _ready():
+	# defauld sound is too loud, make it quiter
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -20.0)
 	$MusicMainMenu.play()
 	$HUD.set_scores(0)
 	randomize()
