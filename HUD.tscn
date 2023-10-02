@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://art/buttons/button1.png" type="Texture" id=6]
 [ext_resource path="res://art/buttons/button2.png" type="Texture" id=7]
 [ext_resource path="res://art/buttons/button3.png" type="Texture" id=8]
+[ext_resource path="res://art/buttons/sound_off.png" type="Texture" id=9]
+[ext_resource path="res://art/buttons/sound_on.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -47,7 +49,18 @@ region_rect = Rect2( 0, 0, 270, 103 )
 size = 24
 font_data = ExtResource( 2 )
 
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 2 )
+
 [node name="HUD" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="Node2D" parent="."]
@@ -88,6 +101,7 @@ text = "Start"
 [node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/Animation"]
 position = Vector2( 640, 360 )
 frames = SubResource( 6 )
+frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -117,19 +131,43 @@ text = "Score: "
 align = 1
 
 [node name="Sound" type="Button" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = 455.0
-margin_top = -64.0
+margin_top = -188.0
 margin_right = 634.0
 margin_bottom = -6.0
+focus_mode = 0
 custom_fonts/font = SubResource( 5 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
 shortcut = SubResource( 4 )
-text = "SOUND: ON"
-icon_align = 1
+
+[node name="SoundOff" type="Sprite" parent="Sound"]
+position = Vector2( 93, 96 )
+texture = ExtResource( 9 )
+
+[node name="SoundOn" type="Sprite" parent="Sound"]
+visible = false
+position = Vector2( 93, 96 )
+texture = ExtResource( 10 )
+
+[node name="Paused" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.733333, 0.796078, 0.713726 )
+
+[node name="PausedText" type="RichTextLabel" parent="Paused"]
+margin_left = 7.0
+margin_top = 678.0
+margin_right = 377.0
+margin_bottom = 733.0
+custom_fonts/normal_font = SubResource( 10 )
+text = "Paused"
 
 [connection signal="pressed" from="ColorRect/Base/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="ColorRect/Animation/PlayAgain" to="." method="_on_PlayAgain_pressed"]

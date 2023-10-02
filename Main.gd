@@ -221,6 +221,7 @@ func game_over():
 	$DeathSound.play()
 	$RandomFingerTimer.stop()
 	$DelayTimer.start()
+	Globals.game_is_started = false
 
 
 func new_game():
@@ -236,6 +237,7 @@ func new_game():
 	$YSort/Player.is_dead = false
 	$Music.play()
 	$MusicMainMenu.stop()
+	Globals.game_is_started = true
 	
 	if OS.is_debug_build() and current_pattern_idx > -1 and current_pattern_idx < PATTERNS.size():
 		print("Playing pattern: ", PATTERNS[current_pattern_idx]["name"])

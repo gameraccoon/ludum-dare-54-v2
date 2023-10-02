@@ -5,6 +5,7 @@ signal start_game
 func _ready():
 	$ColorRect/Animation.visible = Globals.game_is_completed
 	$ColorRect/Base.visible = !Globals.game_is_completed
+	$Paused.visible = false
 
 func show_message(text):
 	$ColorRect/Base/MessageLabel.text = text
@@ -49,17 +50,22 @@ func black_scores():
 func _on_Sound_pressed():
 	var master_sound = AudioServer.get_bus_index("Master")
 	if not AudioServer.is_bus_mute(master_sound):
-		$Sound.text = "SOUND: OFF"
+		#$Sound.text = "SOUND: OFF"
+		$Sound/SoundOff.visible = false
+		$Sound/SoundOn.visible = true
 		AudioServer.set_bus_mute(master_sound, true)
 	else:
-		$Sound.text = "SOUND: ON"
+		#$Sound.text = "SOUND: ON"
+		$Sound/SoundOff.visible = true
+		$Sound/SoundOn.visible = false
 		AudioServer.set_bus_mute(master_sound, false)
-#
-#func _input(event):
-#	if event.is_action_released("pause"):
-#		if not get_node(GlobalVar.pathToGameOver).visible:
-#			get_tree().paused = !get_tree().paused
-#			visible = get_tree().paused
+
+func _input(event):
+	if event.is_action_released("pause"):
+		if Globals.game_is_started:
+			get_tree().paused = !get_tree().paused
+			visible = get_tree().paused
+			$Paused.visible = get_tree().paused
 
 
 func _on_PlayAgain_pressed():
