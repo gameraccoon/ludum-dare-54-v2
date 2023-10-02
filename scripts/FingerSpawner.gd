@@ -11,8 +11,8 @@ signal finger_stroke
 func finger_stroke_callback(finger_pos: Vector2):
 	emit_signal("finger_stroke")
 	var finger_bang = particles_prefub.instance()
-	finger_bang.position = finger_pos
-	add_child(finger_bang)
+	finger_bang.position = finger_pos - Vector2(0.0, 1.0)
+	get_node(fingers_root).add_child(finger_bang)
 
 func strike_finger_at(position: Vector2):
 	var new_finger = finger_prefub.instance()
