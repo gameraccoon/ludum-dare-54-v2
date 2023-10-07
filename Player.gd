@@ -149,6 +149,7 @@ func _input(event):
 				else:
 					double_tap_window_cooldown = DOUBLE_TAP_WINDOW
 				touch_movement_active = true
+				touch_movement_pos = event.position
 			if !event.is_pressed():
 				touch_movement_active = false
 		else:
