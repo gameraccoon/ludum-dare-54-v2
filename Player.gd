@@ -15,6 +15,14 @@ var dash_length = 0.1
 var dash_time_left = 0.0
 var dash_start_velocity_vector = Vector2(0.0, 0.0)
 
+var touch_movement_pos = Vector2(0.0, 0.0)
+var touch_movement_active = false
+const DOUBLE_TAP_WINDOW = 0.2
+const DOUBLE_TAP_RESET_DISTANCE = 50.0
+var double_tap_window_cooldown = 0.0
+var double_tap_activated = false
+var movement_treshold = 10.0
+
 # use first frame to precache things
 var first_frames_count = 0
 var frames_to_precache_particles = 5
@@ -38,17 +46,31 @@ func _process(delta):
 
 	$Visuals.position.y = Globals.space_offset if Globals.is_space_pressed else 0
 	
+	double_tap_window_cooldown -= delta
+	if double_tap_window_cooldown < 0.0:
+		double_tap_window_cooldown = 0.0
+	
 	var velocity = Vector2.ZERO # The player's movement vector.
 
 	if !is_dead:
 		if Input.is_action_pressed("move_right"):
 			velocity.x += 1
+			touch_movement_active = false
 		if Input.is_action_pressed("move_left"):
 			velocity.x -= 1
+			touch_movement_active = false
 		if Input.is_action_pressed("move_down"):
 			velocity.y += 1
+			touch_movement_active = false
 		if Input.is_action_pressed("move_up"):
 			velocity.y -= 1
+			touch_movement_active = false
+
+		if touch_movement_active:
+			var diff = touch_movement_pos - position
+			var diff_length = diff.length()
+			if diff_length > movement_treshold:
+				velocity = diff / diff_length
 
 	dash_cooldown_left -= delta
 	if dash_cooldown_left < 0.0:
@@ -67,7 +89,10 @@ func _process(delta):
 	else:
 		dash_time_left = 0.0
 
-	if (Input.is_action_pressed("Dash") and dash_cooldown_left == 0.0) and velocity != Vector2(0.0, 0.0) and Globals.game_is_started:
+	var dash_requested = Input.is_action_pressed("Dash") or double_tap_activated
+	double_tap_activated = false
+
+	if (dash_requested and dash_cooldown_left == 0.0) and velocity != Vector2(0.0, 0.0) and Globals.game_is_started:
 		# start dash
 		$Visuals/DashTrail.emitting = true
 		dash_cooldown_left = dash_cooldown_time
@@ -108,3 +133,23 @@ func _on_Area2D_body_entered(_body):
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$Area2D/Collison.set_deferred("disabled", true)
 	emit_signal("hit")
+
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		if (touch_movement_pos - event.position).length() > DOUBLE_TAP_RESET_DISTANCE:
+			double_tap_window_cooldown = 0.0
+		touch_movement_pos = event.position
+	if event is InputEventScreenTouch:
+		if Globals.game_is_started:
+			if event.is_pressed():
+				if double_tap_window_cooldown > 0.0:
+					double_tap_activated = true
+					double_tap_window_cooldown = 0.0
+				else:
+					double_tap_window_cooldown = DOUBLE_TAP_WINDOW
+				touch_movement_active = true
+			if !event.is_pressed():
+				touch_movement_active = false
+		else:
+			touch_movement_active = false
