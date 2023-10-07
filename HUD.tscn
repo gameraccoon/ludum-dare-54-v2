@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
@@ -18,12 +18,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 2 )
-
-[sub_resource type="InputEventAction" id=3]
-action = "start_game"
-
-[sub_resource type="ShortCut" id=4]
-shortcut = SubResource( 3 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -92,8 +86,10 @@ margin_left = 510.0
 margin_top = 462.0
 margin_right = 768.0
 margin_bottom = 562.0
+focus_mode = 0
 custom_fonts/font = SubResource( 2 )
-shortcut = SubResource( 4 )
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
 text = "Start"
 
 [node name="Animation" type="Node2D" parent="ColorRect"]
@@ -101,7 +97,6 @@ text = "Start"
 [node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/Animation"]
 position = Vector2( 640, 360 )
 frames = SubResource( 6 )
-frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -114,6 +109,8 @@ focus_mode = 0
 custom_styles/hover = SubResource( 7 )
 custom_styles/pressed = SubResource( 8 )
 custom_styles/normal = SubResource( 9 )
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
 
 [node name="PointsWhite" type="Label" parent="."]
 visible = false
@@ -158,7 +155,8 @@ custom_fonts/font = SubResource( 5 )
 custom_styles/hover = SubResource( 11 )
 custom_styles/pressed = SubResource( 12 )
 custom_styles/normal = SubResource( 13 )
-shortcut = SubResource( 4 )
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
 
 [node name="SoundOff" type="Sprite" parent="Sound"]
 position = Vector2( 93, 96 )

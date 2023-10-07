@@ -29,9 +29,10 @@ func show_game_over():
 
 
 func _on_StartButton_pressed():
-	$ColorRect/Base/StartButton.hide()
-	$Sound.hide()
-	emit_signal("start_game")
+	if $Sound.visible:
+		$ColorRect/Base/StartButton.hide()
+		$Sound.hide()
+		emit_signal("start_game")
 
 func hide_message():
 	$ColorRect/Base/MessageLabel.hide()
@@ -66,11 +67,14 @@ func _input(event):
 			get_tree().paused = !get_tree().paused
 			$Paused.visible = get_tree().paused
 			$Sound.visible = get_tree().paused
-	if event.is_action_released("start_game") and !Globals.game_is_started:
+	if event.is_action_released("start_game") and !Globals.game_is_started and $ColorRect.visible:
 		_on_StartButton_pressed()
+	if event.is_action_released("toggle_sound"):
+		_on_Sound_pressed()
 
 
 func _on_PlayAgain_pressed():
-	$ColorRect/Base/StartButton.hide()
-	$Sound.hide()
-	emit_signal("start_game")
+	if $Sound.visible:
+		$ColorRect/Base/StartButton.hide()
+		$Sound.hide()
+		emit_signal("start_game")
