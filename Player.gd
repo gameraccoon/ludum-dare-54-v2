@@ -67,7 +67,7 @@ func _process(delta):
 	else:
 		dash_time_left = 0.0
 
-	if (Input.is_action_pressed("Dash") and dash_cooldown_left == 0.0) and velocity != Vector2(0.0, 0.0):
+	if (Input.is_action_pressed("Dash") and dash_cooldown_left == 0.0) and velocity != Vector2(0.0, 0.0) and Globals.game_is_started:
 		# start dash
 		$Visuals/DashTrail.emitting = true
 		dash_cooldown_left = dash_cooldown_time
