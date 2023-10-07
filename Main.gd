@@ -222,6 +222,7 @@ func game_over():
 	$RandomFingerTimer.stop()
 	$DelayTimer.start()
 	Globals.game_is_started = false
+	$HUD.update_touch_ui()
 
 
 func new_game():

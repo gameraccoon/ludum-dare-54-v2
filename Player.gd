@@ -16,7 +16,6 @@ var dash_time_left = 0.0
 var dash_start_velocity_vector = Vector2(0.0, 0.0)
 
 var touch_movement_pos = Vector2(0.0, 0.0)
-var touch_movement_active = false
 const DOUBLE_TAP_WINDOW = 0.2
 const DOUBLE_TAP_RESET_DISTANCE = 50.0
 var double_tap_window_cooldown = 0.0
@@ -55,18 +54,18 @@ func _process(delta):
 	if !is_dead:
 		if Input.is_action_pressed("move_right"):
 			velocity.x += 1
-			touch_movement_active = false
+			Globals.touch_movement_active = false
 		if Input.is_action_pressed("move_left"):
 			velocity.x -= 1
-			touch_movement_active = false
+			Globals.touch_movement_active = false
 		if Input.is_action_pressed("move_down"):
 			velocity.y += 1
-			touch_movement_active = false
+			Globals.touch_movement_active = false
 		if Input.is_action_pressed("move_up"):
 			velocity.y -= 1
-			touch_movement_active = false
+			Globals.touch_movement_active = false
 
-		if touch_movement_active:
+		if Globals.touch_movement_active:
 			var diff = touch_movement_pos - position
 			var diff_length = diff.length()
 			if diff_length > movement_treshold:
@@ -148,9 +147,9 @@ func _input(event):
 					double_tap_window_cooldown = 0.0
 				else:
 					double_tap_window_cooldown = DOUBLE_TAP_WINDOW
-				touch_movement_active = true
+				Globals.touch_movement_active = true
 				touch_movement_pos = event.position
 			if !event.is_pressed():
-				touch_movement_active = false
+				Globals.touch_movement_active = false
 		else:
-			touch_movement_active = false
+			Globals.touch_movement_active = false

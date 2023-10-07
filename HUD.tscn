@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
@@ -53,9 +53,18 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxEmpty" id=13]
 
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 679.0, 577.0 ]
+}
 
 [node name="ColorRect" type="Node2D" parent="."]
 
@@ -134,9 +143,9 @@ anchor_bottom = 1.0
 color = Color( 1, 0.733333, 0.796078, 0.713726 )
 
 [node name="PausedText" type="RichTextLabel" parent="Paused"]
-margin_left = 7.0
+margin_left = 11.0
 margin_top = 678.0
-margin_right = 377.0
+margin_right = 381.0
 margin_bottom = 733.0
 custom_fonts/normal_font = SubResource( 10 )
 text = "Paused"
@@ -169,6 +178,85 @@ position = Vector2( 93, 96 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 10 )
 
+[node name="SoundBlinkTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Touch" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TouchPauseButton" type="Button" parent="Touch"]
+visible = false
+margin_left = 6.0
+margin_top = 560.0
+margin_right = 145.0
+margin_bottom = 697.0
+focus_mode = 0
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/normal = SubResource( 16 )
+action_mode = 0
+enabled_focus_mode = 0
+
+[node name="ColorRect2" type="ColorRect" parent="Touch/TouchPauseButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.5
+margin_top = -42.5
+margin_right = -13.5
+margin_bottom = 42.5
+mouse_filter = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Touch/TouchPauseButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.5
+margin_top = -42.5
+margin_right = 37.5
+margin_bottom = 42.5
+mouse_filter = 1
+
+[node name="TouchUnpauseButton" type="Button" parent="Touch"]
+visible = false
+margin_left = 6.0
+margin_top = 560.0
+margin_right = 145.0
+margin_bottom = 697.0
+focus_mode = 0
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/normal = SubResource( 16 )
+enabled_focus_mode = 0
+
+[node name="ColorRect2" type="ColorRect" parent="Touch/TouchUnpauseButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.5
+margin_top = -42.5
+margin_right = -13.5
+margin_bottom = 42.5
+mouse_filter = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Touch/TouchUnpauseButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.5
+margin_top = -42.5
+margin_right = 37.5
+margin_bottom = 42.5
+mouse_filter = 1
+
 [connection signal="pressed" from="ColorRect/Base/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="ColorRect/Animation/PlayAgain" to="." method="_on_PlayAgain_pressed"]
 [connection signal="pressed" from="Sound" to="." method="_on_Sound_pressed"]
+[connection signal="timeout" from="SoundBlinkTimer" to="." method="_on_SoundBlinkTimer_timeout"]
+[connection signal="pressed" from="Touch/TouchPauseButton" to="." method="_on_TouchPauseButton_pressed"]
+[connection signal="pressed" from="Touch/TouchUnpauseButton" to="." method="_on_TouchPauseButton_pressed"]
