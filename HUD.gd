@@ -65,6 +65,9 @@ func _input(event):
 		if Globals.game_is_started:
 			get_tree().paused = !get_tree().paused
 			$Paused.visible = get_tree().paused
+			$Sound.visible = get_tree().paused
+	if event.is_action_released("start_game") and !Globals.game_is_started:
+		_on_StartButton_pressed()
 
 
 func _on_PlayAgain_pressed():

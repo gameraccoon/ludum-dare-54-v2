@@ -45,6 +45,10 @@ region_rect = Rect2( 0, 0, 270, 103 )
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 270, 103 )
 
+[sub_resource type="DynamicFont" id=10]
+size = 32
+font_data = ExtResource( 2 )
+
 [sub_resource type="DynamicFont" id=5]
 size = 24
 font_data = ExtResource( 2 )
@@ -54,10 +58,6 @@ font_data = ExtResource( 2 )
 [sub_resource type="StyleBoxEmpty" id=12]
 
 [sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="DynamicFont" id=10]
-size = 32
-font_data = ExtResource( 2 )
 
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
@@ -101,6 +101,7 @@ text = "Start"
 [node name="AnimatedSprite" type="AnimatedSprite" parent="ColorRect/Animation"]
 position = Vector2( 640, 360 )
 frames = SubResource( 6 )
+frame = 1
 speed_scale = 0.5
 playing = true
 
@@ -129,6 +130,20 @@ custom_fonts/font = SubResource( 1 )
 text = "Score: "
 align = 1
 
+[node name="Paused" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.733333, 0.796078, 0.713726 )
+
+[node name="PausedText" type="RichTextLabel" parent="Paused"]
+margin_left = 7.0
+margin_top = 678.0
+margin_right = 377.0
+margin_bottom = 733.0
+custom_fonts/normal_font = SubResource( 10 )
+text = "Paused"
+
 [node name="Sound" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -155,20 +170,6 @@ visible = false
 position = Vector2( 93, 96 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 10 )
-
-[node name="Paused" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 1, 0.733333, 0.796078, 0.713726 )
-
-[node name="PausedText" type="RichTextLabel" parent="Paused"]
-margin_left = 7.0
-margin_top = 678.0
-margin_right = 377.0
-margin_bottom = 733.0
-custom_fonts/normal_font = SubResource( 10 )
-text = "Paused"
 
 [connection signal="pressed" from="ColorRect/Base/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="ColorRect/Animation/PlayAgain" to="." method="_on_PlayAgain_pressed"]
